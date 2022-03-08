@@ -10,7 +10,7 @@ module.exports = app => {
         }catch(error) {
             res.status(400).json({ error });
         } 
-    }
+    };
 
     return api;
 }
