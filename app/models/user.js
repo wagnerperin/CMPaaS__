@@ -21,7 +21,11 @@ const schema = mongoose.Schema({
     },
     salt: {
         type: String
-    }
+    },
+    maps: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Map"
+    }]
 }, { timestamps: true });
 
 schema.methods.hashPassword = function() {
