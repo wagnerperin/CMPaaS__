@@ -31,7 +31,12 @@ const schema = mongoose.Schema({
 schema.methods.hashPassword = function() {
     this.salt = randomBytes(16).toString('hex');
     this.password = pbkdf2Sync(this.password, this.salt, 1000, 64, 'sha512').toString('hex');
-}
+};
+
+schema.methods.validPassword = function(password){ 
+    let hash = pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex'); 
+    return this.password === hash; 
+};
 
 schema.pre('save', function(next){
     if(!this.isModified('password')) return next();
