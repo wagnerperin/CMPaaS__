@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
-const { randomUUID, randomBytes, pbkdf2Sync } = require('crypto');
+const { randomBytes, pbkdf2Sync } = require('crypto');
 
 const schema = mongoose.Schema({
-    _id: {
-        type: String,
-        default: randomUUID()
-    },
     name: {
         type: String,
         required: true,
@@ -26,7 +22,7 @@ const schema = mongoose.Schema({
     salt: {
         type: String
     }
-});
+}, { timestamps: true });
 
 schema.methods.hashPassword = function() {
     this.salt = randomBytes(16).toString('hex');
