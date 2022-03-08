@@ -31,17 +31,26 @@ module.exports = app => {
     };
 
     api.authenticationOptional = async (req, res, next) => {
-        await loadToken(req).catch(err => res.status(401).json({ err }));
+        try{
+            await loadToken(req);
+            next();
+        }catch(err){
+            return res.status(401).json({ err });
+        }
         
-        next();
     };
 
     api.authenticationRequired = async (req, res, next) => {
-        await loadToken(req).catch(err => res.status(401).json({ err }));
-
-        if(!req.isAuthenticated()) return res.status(401).json({ error: "Authentication required." });
+        try{
+            await loadToken(req);
+            
+            if(!req.isAuthenticated()) return res.status(401).json({ error: "Authentication required." });
         
-        next();
+            next();
+        }catch(err){
+            return res.status(401).json({ err });
+        }
+        
     };
 
     return api;
