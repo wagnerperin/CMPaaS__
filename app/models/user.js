@@ -25,6 +25,10 @@ const schema = mongoose.Schema({
     maps: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Map"
+    }],
+    groups: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Group"
     }]
 }, { timestamps: true });
 
