@@ -4,5 +4,6 @@ module.exports = app => {
 
     app
         .route('/maps')
-        .post(authApi.authenticationOptional, api.create);
+        .post(authApi.authenticationOptional, api.create)
+        .get(api.list);
 }

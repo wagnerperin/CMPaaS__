@@ -26,5 +26,19 @@ module.exports = app => {
         } 
     };
 
+    api.list = async (req, res) => {
+        const { page = 1, limit = 10 } = req.query;
+
+        try{
+            let maps = await mapModel.find()
+                                    .limit( limit )
+                                    .skip( (page - 1 ) * limit )
+                                    .exec();
+            res.json(maps);
+        }catch(error){
+            res.status(400).json({ error });
+        }
+    }
+
     return api;
 }
