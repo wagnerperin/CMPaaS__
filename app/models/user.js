@@ -43,6 +43,9 @@ schema.methods.validPassword = function(password){
 };
 
 schema.pre('save', function(next){
+    this.groups = this.isNew ? [] : this.groups;
+    this.maps = this.isNew ? [] : this.maps;
+
     if(!this.isModified('password')) return next();
     
     this.hashPassword();
