@@ -20,6 +20,13 @@ module.exports = app => {
         });
     };
 
+    const loadUserData = async (req) => {
+        let user = await userModel.findById(req.user._id);
+        req.user = user;
+        
+        req.isAdmin = () => req.user.groups.some(group => group._id == process.env.ADMIN_GROUP_ID) ? true : false;
+    };
+
     api.authenticate = async (req, res) => {
         let user = await userModel.findOne({ email: req.body.email });
         
@@ -51,6 +58,23 @@ module.exports = app => {
             return res.status(401).json({ err });
         }
         
+    };
+
+    api.adminRequired = async (req, res, next) => {
+        try{
+            
+            await loadToken(req);
+            if(!req.isAuthenticated()) return res.status(401).json({ error: "Authentication required." });
+
+            
+
+            await loadUserData(req);
+            if(!req.isAdmin()) return res.status(403).json({ error: "Administration level required." });
+
+            next();
+        }catch(err){
+            return res.status(401).json({ err });
+        }
     };
 
     return api;

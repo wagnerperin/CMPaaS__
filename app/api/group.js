@@ -22,6 +22,9 @@ module.exports = app => {
             res.status(400).json({ error });
         } 
     };
+    api.list = async (req, res) => {
+        res.json({ok: true});
+    }
 
     return api;
 }

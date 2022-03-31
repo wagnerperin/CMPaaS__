@@ -4,5 +4,6 @@ module.exports = app => {
 
     app
         .route('/groups')
-        .post(authApi.authenticationRequired, api.create);
+        .post(authApi.authenticationRequired, api.create)
+        .get(authApi.adminRequired, api.list);
 }
