@@ -3,7 +3,7 @@ module.exports = app => {
     const authApi = app.api.auth;
 
     app
-        .route('/groups')
+        .route('/group')
         .post(authApi.authenticationRequired, api.create)
         .get(authApi.adminRequired, api.list);
 }

@@ -23,6 +23,10 @@
         "description": "Find out more about our project",
         "url": "http://cmportal.org"
       }
+    },
+    {
+      "name": "auth",
+      "description": "Authentication API"
     }
   ],
   "schemes": [
@@ -56,7 +60,56 @@
         ],
         "responses": {
           "201": {
-            "description": "created"
+            "description": "Created"
+          },
+          "400": {
+            "description": "Error in the request processing"
+          }
+        }
+      }
+    },
+    "/auth": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Generates the authentication code",
+        "description": "Performs user authentication using the JWT method.\n This token has to be sent in the header 'x-access-token' in all protected API requests.",
+        "operationId": "authenticate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User information for authentication.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required":[
+                "email", "password"
+              ],
+              "properties":{
+                "email": {
+                  "type": "string"
+                },
+                "password":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Error in the request processing"
           }
         }
       }
@@ -81,6 +134,9 @@
   "definitions": {
     "User": {
       "type": "object",
+      "required":[
+        "name", "email", "password"
+      ],
       "properties": {
         "name": {
           "type": "string"
