@@ -10,11 +10,12 @@ app.use(
 
 app.use(express.json());
 
-consign({cwd: 'app'})
-    .include('helpers')
-    .then('models')
-    .then('api')
-    .then('routes')
-    .into(app);
+consign({cwd: 'app', extensions:['.js']})
+.include('helpers')
+.then('models')
+.then('api')
+.then('routes')
+.then('swagger')
+.into(app);
 
 module.exports = app;
