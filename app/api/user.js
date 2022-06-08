@@ -12,5 +12,9 @@ module.exports = app => {
         } 
     };
 
+    api.list = async (req, res) => {
+        res.json({ok: true});
+    }
+
     return api;
 }

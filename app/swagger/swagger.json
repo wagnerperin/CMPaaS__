@@ -66,6 +66,35 @@
             "description": "Error in the request processing"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user list",
+        "description": "Get the user list.",
+        "operationId": "listUsers",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "List of users"
+          },
+          "400": {
+            "description": "Error in the request processing"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
       }
     },
     "/auth": {
@@ -118,17 +147,8 @@
   "securityDefinitions": {
     "api_key": {
       "type": "apiKey",
-      "name": "api_key",
+      "name": "x-access-token",
       "in": "header"
-    },
-    "petstore_auth": {
-      "type": "oauth2",
-      "authorizationUrl": "https://petstore.swagger.io/oauth/authorize",
-      "flow": "implicit",
-      "scopes": {
-        "read:pets": "read your pets",
-        "write:pets": "modify pets in your account"
-      }
     }
   },
   "definitions": {
