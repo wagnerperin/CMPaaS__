@@ -25,6 +25,10 @@
       }
     },
     {
+      "name": "group",
+      "description": "Operations about groups and members"
+    },
+    {
       "name": "auth",
       "description": "Authentication API"
     }
@@ -85,6 +89,46 @@
         "responses": {
           "200": {
             "description": "List of users"
+          },
+          "400": {
+            "description": "Error in the request processing"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/group": {
+      "post": {
+        "tags": [
+          "group"
+        ],
+        "summary": "Creates a new group",
+        "description": "Creates a new group with the given data in the request body.",
+        "operationId": "createGroup",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Group object that needs to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
           },
           "400": {
             "description": "Error in the request processing"
@@ -166,6 +210,26 @@
         },
         "password": {
           "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Group": {
+      "type": "object",
+      "required":[
+        "name", "description", "isPublic"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "isPublic": {
+          "type": "boolean"
         }
       },
       "xml": {

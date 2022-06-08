@@ -13,7 +13,27 @@ module.exports = app => {
     };
 
     api.list = async (req, res) => {
-        res.json({ok: true});
+        let {limit = 10, page = 1, q} = req.query;
+        const limitResults = parseInt(limit);
+        const skip = (page - 1) * limitResults;
+
+        let query = {};
+        if(q){
+            query = {
+                $or: [
+                    {'name': {
+                        '$regex': q,
+                        '$options': 'i'
+                    }},
+                    {'email': {
+                        '$regex': q,
+                        '$options': 'i'
+                    }}
+                ]
+            }
+        }
+        let userList = await userModel.find(query).limit(limitResults).skip(skip).exec();
+        res.json(userList);
     }
 
     return api;
