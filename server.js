@@ -1,6 +1,5 @@
 const app = require('./conf/express');
 const config = require('./conf/config');
-
 const database = require('./conf/database');
 database.conect(config.DBURI);
 

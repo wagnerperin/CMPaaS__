@@ -2,12 +2,7 @@ const express = require('express');
 const app = express();
 const consign = require('consign');
 
-app.use(
-    express.urlencoded({
-        extended: true
-    })
-);
-
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 consign({cwd: 'app', extensions:['.js']})
